@@ -1,0 +1,3 @@
+C:/OC/lab1/SysInfoLinuxWindows/build/CMakeFiles/sys-info.dir
+C:/OC/lab1/SysInfoLinuxWindows/build/CMakeFiles/ALL_BUILD.dir
+C:/OC/lab1/SysInfoLinuxWindows/build/CMakeFiles/ZERO_CHECK.dir
