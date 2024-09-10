@@ -49,7 +49,7 @@ void GetRAMInfo()
         std::cout << "RAM: " << freeRAM << "MB / " << totalRAM << "MB" << std::endl;
     }
     else {
-        std::cout << "Unable to retrieve memory information" << std::endl;
+        std::cout << "Unable to get memory information" << std::endl;
     }
 }
 
@@ -67,5 +67,5 @@ int main()
     GetRAMInfo();
     GetProcessorInfo();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

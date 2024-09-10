@@ -1,0 +1,3 @@
+/mnt/c/OC/lab1/LinuxSystemInfo/tepm/build/CMakeFiles/my_program.dir
+/mnt/c/OC/lab1/LinuxSystemInfo/tepm/build/CMakeFiles/edit_cache.dir
+/mnt/c/OC/lab1/LinuxSystemInfo/tepm/build/CMakeFiles/rebuild_cache.dir
