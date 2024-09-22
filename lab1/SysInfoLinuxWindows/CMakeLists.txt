@@ -3,4 +3,4 @@ project(sys-info)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(sys-info main.cpp)
+add_executable(main main.cpp)

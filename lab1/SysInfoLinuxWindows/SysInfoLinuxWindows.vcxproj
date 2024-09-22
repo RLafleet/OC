@@ -127,10 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ISysInfo.h" />
+    <ClCompile Include="LinuxSysInfo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SysInfoFactory.cpp" />
+    <ClCompile Include="WindowsSysInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SysInfo.h" />
+    <ClInclude Include="LinuxSysInfo.h" />
+    <ClInclude Include="SysInfoFactory.h" />
+    <ClInclude Include="WindowsSysInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

@@ -1,71 +1,85 @@
 ﻿#include <iostream>
 #include <windows.h>
 #include <versionhelpers.h>
+#include <string>
+#include <sstream>
 
 typedef LONG(WINAPI* RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
 
 const int WINDOWS_VERSION_10 = 10;
 const int WINDOWS_11_FIRST_BUILD_NUMBER = 22000;
 
-void GetOsVersion()
+std::string GetOsVersion()
 {
     RTL_OSVERSIONINFOW osInfo;
     osInfo.dwOSVersionInfoSize = sizeof(osInfo);
 
+    // проверить на ошибку
+    // попробовать без лоадера библиотеки "ntdll.dll"
     RtlGetVersionPtr RtlGetVersion = (RtlGetVersionPtr)GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "RtlGetVersion");
-    if (RtlGetVersion != nullptr) 
-    {
-        RtlGetVersion(&osInfo);
-        if (osInfo.dwMajorVersion == WINDOWS_VERSION_10 
-            && osInfo.dwBuildNumber >= WINDOWS_11_FIRST_BUILD_NUMBER) 
-        {
-            std::cout << "OS: Windows 11";
-        }
-        else
-        {
-            std::cout << "OS: " << osInfo.dwMajorVersion;
-        }
-        if (osInfo.dwMinorVersion != 0) {
-            std::cout << "." << osInfo.dwMinorVersion;
-        }
-        std::cout << std::endl;
+    std::ostringstream osVersion;
 
+    if (RtlGetVersion == nullptr)
+    {
+        return "Error: Unable to find RtlGetVersion function.";
     }
-    else {
-        std::cout << "Unable to get OS version" << std::endl;
+
+    LONG result = RtlGetVersion(&osInfo);
+    if (result != 0)
+    {
+        return "Error: Unable to get OS version.";
     }
+
+    if (osInfo.dwMajorVersion == WINDOWS_VERSION_10 && osInfo.dwBuildNumber >= WINDOWS_11_FIRST_BUILD_NUMBER)
+    {
+        osVersion << "OS: Windows 11";
+    }
+    else
+    {
+        osVersion << "OS: " << osInfo.dwMajorVersion;
+    }
+
+    if (osInfo.dwMinorVersion != 0)
+    {
+        osVersion << "." << osInfo.dwMinorVersion;
+    }
+
+    return osVersion.str();
 }
 
-void GetRAMInfo() 
+std::string GetRAMInfo()
 {
     MEMORYSTATUSEX memStatus;
     memStatus.dwLength = sizeof(memStatus);
+    std::ostringstream ramInfo;
 
-    if (GlobalMemoryStatusEx(&memStatus)) 
+    if (!GlobalMemoryStatusEx(&memStatus))
     {
-        DWORDLONG totalRAM = memStatus.ullTotalPhys / (1024 * 1024);  
-        DWORDLONG freeRAM = memStatus.ullAvailPhys / (1024 * 1024);
+        return "Error: Unable to get memory information.";
+    }
 
-        std::cout << "RAM: " << freeRAM << "MB / " << totalRAM << "MB" << std::endl;
-    }
-    else {
-        std::cout << "Unable to get memory information" << std::endl;
-    }
+    DWORDLONG totalRAM = memStatus.ullTotalPhys / (1024 * 1024);
+    DWORDLONG freeRAM = memStatus.ullAvailPhys / (1024 * 1024);
+    ramInfo << "RAM: " << freeRAM << "MB / " << totalRAM << "MB";
+
+    return ramInfo.str();
 }
 
-void GetProcessorInfo() 
+std::string GetProcessorInfo()
 {
     SYSTEM_INFO sysInfo;
     GetSystemInfo(&sysInfo);
+    std::ostringstream procInfo;
+    procInfo << "Processors: " << sysInfo.dwNumberOfProcessors;
 
-    std::cout << "Processors: " << sysInfo.dwNumberOfProcessors << std::endl;
+    return procInfo.str();
 }
 
-int main() 
+int main()
 {
-    GetOsVersion();
-    GetRAMInfo();
-    GetProcessorInfo();
+    std::cout << GetOsVersion() << std::endl;
+    std::cout << GetRAMInfo() << std::endl;
+    std::cout << GetProcessorInfo() << std::endl;
 
     return EXIT_SUCCESS;
 }

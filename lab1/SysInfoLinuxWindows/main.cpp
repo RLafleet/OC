@@ -1,14 +1,19 @@
-﻿#include <iostream>
-#include "SysInfo.h"
+﻿#include "SysInfoFactory.h"
+#include <iostream>
 
 int main() {
-    SysInfo sysInfo;
+    auto sysInfo = SysInfoFactory::CreateSysInfo();
 
-    std::cout << "Operating system: " << sysInfo.GetOSName() << std::endl;
-    std::cout << "Version OC: " << sysInfo.GetOSVersion() << std::endl;
-    std::cout << "Amount of logical process: " << sysInfo.GetProcessorCount() << std::endl;
-    std::cout << "Free memory: " << sysInfo.GetFreeMemory() / (1024 * 1024) << " MB" << std::endl;
-    std::cout << "All of memory: " << sysInfo.GetTotalMemory() / (1024 * 1024) << " MB" << std::endl;
+    if (sysInfo) {
+        std::cout << "OS Name: " << sysInfo->GetOSName() << std::endl;
+        std::cout << "OS Version: " << sysInfo->GetOSVersion() << std::endl;
+        std::cout << "Free Memory: " << sysInfo->GetFreeMemory() << " MB" << std::endl;
+        std::cout << "Total Memory: " << sysInfo->GetTotalMemory() << " MB" << std::endl;
+        std::cout << "Processor Count: " << sysInfo->GetProcessorCount() << std::endl;
+    }
+    else {
+        std::cerr << "Error: Unsupported platform." << std::endl;
+    }
 
     return 0;
 }
