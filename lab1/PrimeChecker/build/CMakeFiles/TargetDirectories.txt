@@ -1,7 +1,7 @@
-/mnt/c/ood/lab_1/Decode/build/CMakeFiles/PrimeChecker.dir
-/mnt/c/ood/lab_1/Decode/build/CMakeFiles/edit_cache.dir
-/mnt/c/ood/lab_1/Decode/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/ood/lab_1/Decode/build/CMakeFiles/list_install_components.dir
-/mnt/c/ood/lab_1/Decode/build/CMakeFiles/install.dir
-/mnt/c/ood/lab_1/Decode/build/CMakeFiles/install/local.dir
-/mnt/c/ood/lab_1/Decode/build/CMakeFiles/install/strip.dir
+/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/PrimeChecker.dir
+/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/edit_cache.dir
+/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/list_install_components.dir
+/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/install.dir
+/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/install/local.dir
+/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/install/strip.dir

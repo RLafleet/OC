@@ -1,5 +1,6 @@
-CMakeFiles/PrimeChecker.dir/main.cpp.o: /mnt/c/ood/lab_1/Decode/main.cpp \
- /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
+CMakeFiles/PrimeChecker.dir/main.cpp.o: \
+ /mnt/c/OC/lab1/PrimeChecker/main.cpp /usr/include/stdc-predef.h \
+ /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -155,4 +156,4 @@ CMakeFiles/PrimeChecker.dir/main.cpp.o: /mnt/c/ood/lab_1/Decode/main.cpp \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /mnt/c/ood/lab_1/Decode/PrimeChecker.h
+ /mnt/c/OC/lab1/PrimeChecker/PrimeChecker.h

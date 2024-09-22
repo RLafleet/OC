@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c/ood/lab_1/Decode
+CMAKE_SOURCE_DIR = /mnt/c/OC/lab1/PrimeChecker
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c/ood/lab_1/Decode/build
+CMAKE_BINARY_DIR = /mnt/c/OC/lab1/PrimeChecker/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/PrimeChecker.dir/depend.make
@@ -72,30 +72,30 @@ include CMakeFiles/PrimeChecker.dir/flags.make
 CMakeFiles/PrimeChecker.dir/main.cpp.o: CMakeFiles/PrimeChecker.dir/flags.make
 CMakeFiles/PrimeChecker.dir/main.cpp.o: ../main.cpp
 CMakeFiles/PrimeChecker.dir/main.cpp.o: CMakeFiles/PrimeChecker.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/ood/lab_1/Decode/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PrimeChecker.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PrimeChecker.dir/main.cpp.o -MF CMakeFiles/PrimeChecker.dir/main.cpp.o.d -o CMakeFiles/PrimeChecker.dir/main.cpp.o -c /mnt/c/ood/lab_1/Decode/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PrimeChecker.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PrimeChecker.dir/main.cpp.o -MF CMakeFiles/PrimeChecker.dir/main.cpp.o.d -o CMakeFiles/PrimeChecker.dir/main.cpp.o -c /mnt/c/OC/lab1/PrimeChecker/main.cpp
 
 CMakeFiles/PrimeChecker.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PrimeChecker.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/ood/lab_1/Decode/main.cpp > CMakeFiles/PrimeChecker.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/OC/lab1/PrimeChecker/main.cpp > CMakeFiles/PrimeChecker.dir/main.cpp.i
 
 CMakeFiles/PrimeChecker.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PrimeChecker.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/ood/lab_1/Decode/main.cpp -o CMakeFiles/PrimeChecker.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/OC/lab1/PrimeChecker/main.cpp -o CMakeFiles/PrimeChecker.dir/main.cpp.s
 
 CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o: CMakeFiles/PrimeChecker.dir/flags.make
 CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o: ../PrimeChecker.cpp
 CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o: CMakeFiles/PrimeChecker.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/ood/lab_1/Decode/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o -MF CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o.d -o CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o -c /mnt/c/ood/lab_1/Decode/PrimeChecker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o -MF CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o.d -o CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o -c /mnt/c/OC/lab1/PrimeChecker/PrimeChecker.cpp
 
 CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/ood/lab_1/Decode/PrimeChecker.cpp > CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/OC/lab1/PrimeChecker/PrimeChecker.cpp > CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.i
 
 CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/ood/lab_1/Decode/PrimeChecker.cpp -o CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/OC/lab1/PrimeChecker/PrimeChecker.cpp -o CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.s
 
 # Object files for target PrimeChecker
 PrimeChecker_OBJECTS = \
@@ -109,7 +109,7 @@ PrimeChecker: CMakeFiles/PrimeChecker.dir/main.cpp.o
 PrimeChecker: CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o
 PrimeChecker: CMakeFiles/PrimeChecker.dir/build.make
 PrimeChecker: CMakeFiles/PrimeChecker.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/ood/lab_1/Decode/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable PrimeChecker"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable PrimeChecker"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PrimeChecker.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -121,6 +121,6 @@ CMakeFiles/PrimeChecker.dir/clean:
 .PHONY : CMakeFiles/PrimeChecker.dir/clean
 
 CMakeFiles/PrimeChecker.dir/depend:
-	cd /mnt/c/ood/lab_1/Decode/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/ood/lab_1/Decode /mnt/c/ood/lab_1/Decode /mnt/c/ood/lab_1/Decode/build /mnt/c/ood/lab_1/Decode/build /mnt/c/ood/lab_1/Decode/build/CMakeFiles/PrimeChecker.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/c/OC/lab1/PrimeChecker/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/OC/lab1/PrimeChecker /mnt/c/OC/lab1/PrimeChecker /mnt/c/OC/lab1/PrimeChecker/build /mnt/c/OC/lab1/PrimeChecker/build /mnt/c/OC/lab1/PrimeChecker/build/CMakeFiles/PrimeChecker.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/PrimeChecker.dir/depend
 

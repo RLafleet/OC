@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/mnt/c/ood/lab_1/Decode/PrimeChecker.cpp" "CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o" "gcc" "CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o.d"
-  "/mnt/c/ood/lab_1/Decode/main.cpp" "CMakeFiles/PrimeChecker.dir/main.cpp.o" "gcc" "CMakeFiles/PrimeChecker.dir/main.cpp.o.d"
+  "/mnt/c/OC/lab1/PrimeChecker/PrimeChecker.cpp" "CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o" "gcc" "CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o.d"
+  "/mnt/c/OC/lab1/PrimeChecker/main.cpp" "CMakeFiles/PrimeChecker.dir/main.cpp.o" "gcc" "CMakeFiles/PrimeChecker.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links.
