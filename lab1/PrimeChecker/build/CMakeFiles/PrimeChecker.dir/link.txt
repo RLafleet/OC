@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/PrimeChecker.dir/main.cpp.o CMakeFiles/PrimeChecker.dir/PrimeChecker.cpp.o -o PrimeChecker 

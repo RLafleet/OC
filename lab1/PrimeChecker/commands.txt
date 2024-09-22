@@ -1,0 +1,10 @@
+SysInfo
+g++ -std=c++14 main.cpp SysInfoFactory.cpp LinuxSysInfo.cpp WindowsSysInfo.cpp -o main
+
+PrimeChecker
+cmake ..
+cmake --build . --config Release
+
+Win
+cmake .. -G "Visual Studio 16 2019"
+cmake --build . --config Release
