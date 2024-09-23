@@ -1,0 +1,3 @@
+/mnt/c/OC/lab2/task_2/build/CMakeFiles/list-processes-linux.dir
+/mnt/c/OC/lab2/task_2/build/CMakeFiles/edit_cache.dir
+/mnt/c/OC/lab2/task_2/build/CMakeFiles/rebuild_cache.dir

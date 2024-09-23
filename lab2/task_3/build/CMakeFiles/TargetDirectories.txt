@@ -1,0 +1,3 @@
+/mnt/c/OC/lab2/task_3/build/CMakeFiles/zombie-linux.dir
+/mnt/c/OC/lab2/task_3/build/CMakeFiles/edit_cache.dir
+/mnt/c/OC/lab2/task_3/build/CMakeFiles/rebuild_cache.dir
