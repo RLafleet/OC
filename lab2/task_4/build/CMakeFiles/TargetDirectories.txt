@@ -1,0 +1,3 @@
+/mnt/c/OC/lab2/task_4/build/CMakeFiles/flip-case.dir
+/mnt/c/OC/lab2/task_4/build/CMakeFiles/edit_cache.dir
+/mnt/c/OC/lab2/task_4/build/CMakeFiles/rebuild_cache.dir

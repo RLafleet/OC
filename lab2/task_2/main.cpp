@@ -6,15 +6,18 @@
 #include <dirent.h>
 #include <unistd.h>
 
-std::string GetProcessName(const std::string& pid) {
+std::string GetProcessName(const std::string& pid) 
+{
     std::string cmdlinePath = "/proc/" + pid + "/cmdline";
     std::ifstream cmdlineFile(cmdlinePath);
     std::string processName;
-    if (cmdlineFile.is_open()) {
+    if (cmdlineFile.is_open()) 
+    {
         std::getline(cmdlineFile, processName, '\0');
         cmdlineFile.close();
     }
-    if (processName.empty()) {
+    if (processName.empty()) 
+    {
         return "<unknown>";
     }
     return processName;
@@ -26,31 +29,38 @@ long GetProcessMemory(const std::string& pid) {
     std::string line;
     long memory = 0;
 
-    if (statusFile.is_open()) {
-        while (std::getline(statusFile, line)) {
-            if (line.substr(0, 6) == "VmRSS:") {
+    if (statusFile.is_open()) 
+    {
+        while (std::getline(statusFile, line)) 
+        {
+            if (line.substr(0, 6) == "VmRSS:") 
+            {
                 std::istringstream iss(line);
                 std::string label;
-                iss >> label >> memory; // VmRSS value in kB
+                iss >> label >> memory; 
                 break;
             }
         }
         statusFile.close();
     }
 
-    return memory; // Return memory in KB
+    return memory; 
 }
 
-bool IsNumeric(const std::string& str) {
-    for (char const& c : str) {
-        if (!std::isdigit(c)) {
+bool IsNumeric(const std::string& str) 
+{
+    for (char const& c : str) 
+    {
+        if (!std::isdigit(c)) 
+        {
             return false;
         }
     }
     return true;
 }
 
-int main() {
+int main() 
+{
     DIR* procDir = opendir("/proc");
     if (procDir == nullptr) {
         std::cerr << "Error: Unable to open /proc directory!" << std::endl;
@@ -59,8 +69,10 @@ int main() {
 
     struct dirent* entry;
 
-    while ((entry = readdir(procDir)) != nullptr) {
-        if (IsNumeric(entry->d_name)) {
+    while ((entry = readdir(procDir)) != nullptr) 
+    {
+        if (IsNumeric(entry->d_name)) 
+        {
             std::string pid = entry->d_name;
             std::string processName = GetProcessName(pid);
             long memoryUsage = GetProcessMemory(pid);
