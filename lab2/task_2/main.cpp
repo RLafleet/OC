@@ -23,7 +23,8 @@ std::string GetProcessName(const std::string& pid)
     return processName;
 }
 
-long GetProcessMemory(const std::string& pid) {
+long GetProcessMemory(const std::string& pid) 
+{
     std::string statusPath = "/proc/" + pid + "/status";
     std::ifstream statusFile(statusPath);
     std::string line;
@@ -62,7 +63,8 @@ bool IsNumeric(const std::string& str)
 int main() 
 {
     DIR* procDir = opendir("/proc");
-    if (procDir == nullptr) {
+    if (procDir == nullptr) 
+    {
         std::cerr << "Error: Unable to open /proc directory!" << std::endl;
         return 1;
     }
