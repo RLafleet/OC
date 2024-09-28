@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/mnt/c/OC/lab2/task_2/CDirHandle.cpp" "CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.o" "gcc" "CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.o.d"
   "/mnt/c/OC/lab2/task_2/main.cpp" "CMakeFiles/list-processes-linux.dir/main.cpp.o" "gcc" "CMakeFiles/list-processes-linux.dir/main.cpp.o.d"
   )
 

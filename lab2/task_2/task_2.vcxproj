@@ -127,6 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CDirHandle.cpp" />
+    <ClCompile Include="CDirHandle.h" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

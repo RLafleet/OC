@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.o"
+  "CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.o.d"
   "CMakeFiles/list-processes-linux.dir/main.cpp.o"
   "CMakeFiles/list-processes-linux.dir/main.cpp.o.d"
   "list-processes-linux"

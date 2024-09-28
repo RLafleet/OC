@@ -1,8 +1,6 @@
-CMakeFiles/list-processes-linux.dir/main.cpp.o: \
- /mnt/c/OC/lab2/task_2/main.cpp /usr/include/stdc-predef.h \
- /usr/include/c++/11/iostream \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.o: \
+ /mnt/c/OC/lab2/task_2/CDirHandle.cpp /usr/include/stdc-predef.h \
+ /mnt/c/OC/lab2/task_2/CDirHandle.h /usr/include/dirent.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -10,8 +8,26 @@ CMakeFiles/list-processes-linux.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+ /usr/include/x86_64-linux-gnu/bits/time64.h \
+ /usr/include/x86_64-linux-gnu/bits/dirent.h \
+ /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/dirent_ext.h \
+ /usr/include/c++/11/cerrno \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
- /usr/include/c++/11/pstl/pstl_config.h /usr/include/c++/11/ostream \
+ /usr/include/c++/11/pstl/pstl_config.h /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
+ /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/iosfwd \
  /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/memoryfwd.h /usr/include/c++/11/bits/postypes.h \
@@ -19,7 +35,6 @@ CMakeFiles/list-processes-linux.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
@@ -52,9 +67,6 @@ CMakeFiles/list-processes-linux.dir/main.cpp.o: \
  /usr/include/c++/11/bits/ptr_traits.h /usr/include/c++/11/debug/debug.h \
  /usr/include/c++/11/bits/predefined_ops.h /usr/include/c++/11/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/types.h \
- /usr/include/x86_64-linux-gnu/bits/typesizes.h \
- /usr/include/x86_64-linux-gnu/bits/time64.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/c++/11/bits/localefwd.h \
@@ -89,7 +101,6 @@ CMakeFiles/list-processes-linux.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/setjmp.h \
  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
  /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
  /usr/include/c++/11/bits/locale_classes.h /usr/include/c++/11/string \
@@ -124,11 +135,6 @@ CMakeFiles/list-processes-linux.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/c++/11/cerrno /usr/include/errno.h \
- /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/x86_64-linux-gnu/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
  /usr/include/c++/11/bits/locale_classes.tcc \
@@ -145,21 +151,4 @@ CMakeFiles/list-processes-linux.dir/main.cpp.o: \
  /usr/include/c++/11/bits/locale_facets.tcc \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/fstream \
- /usr/include/c++/11/bits/codecvt.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/sstream \
- /usr/include/c++/11/bits/sstream.tcc /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
- /usr/include/x86_64-linux-gnu/bits/environments.h \
- /usr/include/x86_64-linux-gnu/bits/confname.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /usr/include/linux/close_range.h /mnt/c/OC/lab2/task_2/CDirHandle.h \
- /usr/include/dirent.h /usr/include/x86_64-linux-gnu/bits/dirent.h \
- /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/dirent_ext.h
+ /usr/include/c++/11/bits/istream.tcc

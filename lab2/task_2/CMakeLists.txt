@@ -3,4 +3,4 @@ project(list_processes_linux)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(list-processes-linux main.cpp)
+add_executable(list-processes-linux main.cpp CDirHandle.h CDirHandle.cpp)

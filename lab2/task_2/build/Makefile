@@ -129,6 +129,30 @@ list-processes-linux/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-processes-linux.dir/build.make CMakeFiles/list-processes-linux.dir/build
 .PHONY : list-processes-linux/fast
 
+CDirHandle.o: CDirHandle.cpp.o
+.PHONY : CDirHandle.o
+
+# target to build an object file
+CDirHandle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-processes-linux.dir/build.make CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.o
+.PHONY : CDirHandle.cpp.o
+
+CDirHandle.i: CDirHandle.cpp.i
+.PHONY : CDirHandle.i
+
+# target to preprocess a source file
+CDirHandle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-processes-linux.dir/build.make CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.i
+.PHONY : CDirHandle.cpp.i
+
+CDirHandle.s: CDirHandle.cpp.s
+.PHONY : CDirHandle.s
+
+# target to generate assembly for a file
+CDirHandle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/list-processes-linux.dir/build.make CMakeFiles/list-processes-linux.dir/CDirHandle.cpp.s
+.PHONY : CDirHandle.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... list-processes-linux"
+	@echo "... CDirHandle.o"
+	@echo "... CDirHandle.i"
+	@echo "... CDirHandle.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
