@@ -48,7 +48,7 @@ int main()
     }
     else if (child_pid == 0)
     {
-        exit(0);
+        return 0;
     }
     else
     {
