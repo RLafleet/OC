@@ -10,7 +10,6 @@
 #include <cstring>
 #include <numeric>
 
-// RAII-обёртка для файловых дескрипторов
 class Pipe {
 public:
     Pipe() {
@@ -31,14 +30,12 @@ private:
     int fds[2];
 };
 
-// Функция для отправки данных через pipe
 void send_message(int fd, const std::string& message) {
     if (write(fd, message.c_str(), message.size() + 1) == -1) {
         throw std::system_error(errno, std::generic_category(), "Write to pipe failed");
     }
 }
 
-// Функция для чтения данных из pipe
 std::string receive_message(int fd) {
     char buffer[256];
     ssize_t bytesRead = read(fd, buffer, sizeof(buffer));
@@ -48,13 +45,11 @@ std::string receive_message(int fd) {
     return std::string(buffer);
 }
 
-// Функция для выполнения команды add
 std::string handle_add(const std::vector<int>& numbers) {
     int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
     return "sum is " + std::to_string(sum);
 }
 
-// Функция для выполнения команды longest_word
 std::string handle_longest_word(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -81,7 +76,6 @@ int main() {
     }
 
     if (pid == 0) {
-        // Дочерний процесс
         close(parent_to_child.write_fd());
         close(child_to_parent.read_fd());
 
@@ -117,7 +111,6 @@ int main() {
         _exit(0);
     }
     else {
-        // Родительский процесс
         close(parent_to_child.read_fd());
         close(child_to_parent.write_fd());
 

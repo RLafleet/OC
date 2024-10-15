@@ -9,73 +9,81 @@
 
 std::vector<pid_t> children;
 
-void signalHandler(int signum) {
+void signalHandler(int signum) 
+{
     std::cout << "Child process " << getpid() << " received signal " << signum << "\n";
-    exit(0); // Завершение процесса при получении сигнала
 }
 
-void childProcess() {
-    signal(SIGTERM, signalHandler); // Обработка сигнала завершения
-    signal(SIGINT, signalHandler);  // Обработка сигнала прерывания
+void childProcess()
+{
+    signal(SIGTERM, signalHandler);
+    signal(SIGINT, signalHandler);
 
     pid_t pid = getpid();
-    while (true) {
-        std::this_thread::sleep_for(std::chrono::seconds(5)); // Пауза на 5 секунд
+    while (true)
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(5));
         std::cout << "Child process " << pid << " is still alive\n";
     }
 }
 
-int main() {
+int main()
+{
     std::string command;
 
-    while (true) {
+    while (true)
+    {
         std::cin >> command;
 
-        if (command == "exit") {
-            // Завершение работы программы
+        if (command == "exit")
+        {
             std::cout << "Exiting...\n";
             break;
         }
-        else if (command == "spawn") {
-            // Создание дочернего процесса
+        else if (command == "spawn")
+        {
             pid_t pid = fork();
-            if (pid == 0) {
-                // Код дочернего процесса
+            if (pid == 0)
+            {
                 childProcess();
                 return 0;
             }
-            else if (pid > 0) {
-                // Родительский процесс добавляет pid в список
+            else if (pid > 0)
+            {
                 children.push_back(pid);
                 std::cout << "Spawned child process with PID: " << pid << "\n";
             }
-            else {
+            else
+            {
                 std::cerr << "Fork failed!\n";
             }
         }
-        else if (command == "kill") {
-            // Убийство первого дочернего процесса в списке
-            if (!children.empty()) {
+        else if (command == "kill")
+        {
+            if (!children.empty())
+            {
                 pid_t pid = children.front();
                 children.erase(children.begin());
-                std::cout << "Killing child process with PID: " << pid << "\n";
+                std::cout << "Kill child process with PID: " << pid << "\n";
                 kill(pid, SIGTERM);
-                waitpid(pid, nullptr, 0); // Ожидание завершения процесса
+                waitpid(pid, nullptr, 0);
             }
-            else {
+            else
+            {
                 std::cout << "No children to kill\n";
             }
         }
-        else {
+        else
+        {
             std::cout << "Unknown command: " << command << "\n";
         }
     }
 
-    // Завершение всех оставшихся дочерних процессов при завершении программы
-    for (pid_t pid : children) {
-        std::cout << "Terminating remaining child process with PID: " << pid << "\n";
+    for (pid_t pid : children)
+    {
+        std::cout << "Terminating remaining after exit child process with PID: " << pid << "\n";
         kill(pid, SIGTERM);
-        waitpid(pid, nullptr, 0); // Ожидание завершения
+        waitpid(pid, nullptr, 0);
     }
 
     return 0;
