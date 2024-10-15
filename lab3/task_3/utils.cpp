@@ -1,4 +1,4 @@
-#ifdef __linux__
+﻿#ifdef __linux__
 
 #include <system_error>
 #include <unistd.h>
@@ -14,45 +14,48 @@
 #include <numeric>
 #include <fstream>
 
-template <typename T>
-void SendData(int fd, const T& data) 
+#include <span>
+
+void SendSpan(int fd, std::span<const uint8_t> data)
 {
-    auto buffer = std::bit_cast<const char*>(&data);
-    if (write(fd, buffer, sizeof(T)) == -1) 
+    if (write(fd, data.data(), data.size_bytes()) == -1)
     {
-        throw std::system_error(errno, std::generic_category(), "Write to pipe failed");
+        throw std::system_error(errno, std::generic_category(), "Failed to write to pipe");
     }
 }
 
-template <typename T>
-T ReceiveData(int fd) 
+std::vector<uint8_t> ReceiveSpan(int fd, size_t size)
 {
-    T data;
-    auto buffer = std::bit_cast<char*>(&data);
-    if (read(fd, buffer, sizeof(T)) == -1) 
+    std::vector<uint8_t> buffer(size);
+    if (read(fd, buffer.data(), size) == -1)
     {
-        throw std::system_error(errno, std::generic_category(), "Read from pipe failed");
+        throw std::system_error(errno, std::generic_category(), "Failed to read from pipe");
     }
-    return data;
+    return buffer;
 }
 
-void SendMessage(int fd, const std::string& message) 
+void SendString(int fd, const std::string& str)
 {
-    if (write(fd, message.c_str(), message.size() + 1) == -1) 
+    size_t len = str.size();
+    if (write(fd, &len, sizeof(len)) == -1)
     {
-        throw std::system_error(errno, std::generic_category(), "Write to pipe failed");
+        throw std::system_error(errno, std::generic_category(), "Failed to write string length to pipe");
+    }
+
+    if (write(fd, str.data(), len) == -1)
+    {
+        throw std::system_error(errno, std::generic_category(), "Failed to write string to pipe");
     }
 }
 
-std::string ReceiveMessage(int fd) 
+std::string ReceiveString(int fd)
 {
-    char buffer[256];
-    ssize_t bytesRead = read(fd, buffer, sizeof(buffer));
-    if (bytesRead == -1) 
-    {
-        throw std::system_error(errno, std::generic_category(), "Read from pipe failed");
-    }
-    return std::string(buffer);
+    size_t len;
+    std::vector<uint8_t> lenBuffer = ReceiveSpan(fd, sizeof(len));  
+    std::memcpy(&len, lenBuffer.data(), sizeof(len));
+
+    std::vector<uint8_t> strBuffer = ReceiveSpan(fd, len);          
+    return std::string(reinterpret_cast<char*>(strBuffer.data()), len);
 }
 
 std::string HandleAdd(const std::vector<int>& numbers) 

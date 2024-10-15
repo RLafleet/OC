@@ -3,9 +3,12 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <numeric>
 #include <unistd.h>
+#include <system_error>
 #include "Pipe.h"
 #include "utils.cpp"
+#include <span>
 
 int main() 
 {
@@ -25,7 +28,7 @@ int main()
 
         while (true) 
         {
-            std::string command = ReceiveMessage(parentToChild.ReadFd()); 
+            std::string command = ReceiveString(parentToChild.ReadFd()); 
 
             std::istringstream iss(command);
             std::string cmd;
@@ -41,14 +44,14 @@ int main()
                 }
 
                 int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
-                SendData(childToParent.WriteFd(), sum);
+                SendSpan(childToParent.WriteFd(), std::span<const uint8_t>(reinterpret_cast<const uint8_t*>(&sum), sizeof(sum))); 
             }
             else if (cmd == "longestWord") 
             {
                 std::string filename;
                 iss >> filename;
                 std::string result = HandleLongestWord(filename);
-                SendMessage(childToParent.WriteFd(), result); 
+                SendString(childToParent.WriteFd(), result);  
             }
             else if (cmd == "exit") 
             {
@@ -71,20 +74,22 @@ int main()
             std::getline(std::cin, line);  
             if (line == "exit") 
             {
-                SendMessage(parentToChild.WriteFd(), line);
+                SendString(parentToChild.WriteFd(), line);  
                 break;
             }
 
-            SendMessage(parentToChild.WriteFd(), line);  
+            SendString(parentToChild.WriteFd(), line);  
 
             if (line.find("add") == 0) 
             {
-                int result = ReceiveData<int>(childToParent.ReadFd());  
+                int result;
+                std::vector<uint8_t> resultBuffer = ReceiveSpan(childToParent.ReadFd(), sizeof(result));  
+                std::memcpy(&result, resultBuffer.data(), sizeof(result));
                 std::cout << "sum is " << result << std::endl;
             }
             else if (line.find("longestWord") == 0) 
             {
-                std::string result = ReceiveMessage(childToParent.ReadFd());
+                std::string result = ReceiveString(childToParent.ReadFd());
                 std::cout << result << std::endl;
             }
         }
