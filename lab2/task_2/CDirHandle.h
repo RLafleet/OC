@@ -4,8 +4,10 @@
 
 #include <dirent.h>
 
-class CDirHandle {
+class CDirHandle 
+{
 public:
+    //???????????
     explicit CDirHandle(DIR* dir);
     ~CDirHandle();
 
@@ -13,6 +15,7 @@ public:
     operator DIR* () const; 
 
 private:
+    //name m_
     DIR* dirHandle;
 };
 

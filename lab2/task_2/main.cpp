@@ -1,4 +1,4 @@
-#ifdef __linux__
+﻿#ifdef __linux__
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -7,19 +7,19 @@
 #include "CDirHandle.h"
 #include <stdexcept>
 
-static std::string GetProcessName(const std::string& pid)
+// pid на числовой тип
+static std::string GetProcessName(int pid)
 {
-    std::string cmdlinePath = "/proc/" + pid + "/cmdline";
+    std::string cmdlinePath = "/proc/" + std::to_string(pid) + "/cmdline";
     std::ifstream cmdlineFile(cmdlinePath);
     std::string processName;
 
     if (!cmdlineFile.is_open())
     {
-        throw std::runtime_error("Failed to open cmdline file for PID: " + pid);
+        throw std::runtime_error("Failed to open cmdline file for PID: " + std::to_string(pid));
     }
 
     std::getline(cmdlineFile, processName, '\0');
-    cmdlineFile.close();
 
     if (processName.empty())
     {
@@ -28,16 +28,16 @@ static std::string GetProcessName(const std::string& pid)
     return processName;
 }
 
-static long GetProcessMemory(const std::string& pid)
+static long GetProcessMemory(int pid)
 {
-    std::string statusPath = "/proc/" + pid + "/status";
+    std::string statusPath = "/proc/" + std::to_string(pid) + "/status";
     std::ifstream statusFile(statusPath);
     std::string line;
     long memory = 0;
 
     if (!statusFile.is_open())
     {
-        throw std::runtime_error("Failed to open status file for PID: " + pid);
+        throw std::runtime_error("Failed to open status file for PID: " + std::to_string(pid));
     }
 
     while (std::getline(statusFile, line))
@@ -50,8 +50,6 @@ static long GetProcessMemory(const std::string& pid)
             break;
         }
     }
-
-    statusFile.close();
 
     return memory;
 }
@@ -84,7 +82,7 @@ int main()
         {
             if (IsNumeric(entry->d_name))
             {
-                std::string pid = entry->d_name;
+                int pid = std::stoi(entry->d_name);
                 std::string processName = GetProcessName(pid);
                 long memoryUsage = GetProcessMemory(pid);
 

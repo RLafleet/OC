@@ -19,6 +19,8 @@ bool WaitForChild()
 
         if (waited_pid == -1)
         {
+            // waitpid любого дочернего
+            waitpid(-1, &status, 0);
             std::cout << "Exiting..." << std::endl;
             return false;
         }
