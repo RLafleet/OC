@@ -129,6 +129,30 @@ Pipes/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pipes.dir/build.make CMakeFiles/Pipes.dir/build
 .PHONY : Pipes/fast
 
+Pipe.o: Pipe.cpp.o
+.PHONY : Pipe.o
+
+# target to build an object file
+Pipe.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pipes.dir/build.make CMakeFiles/Pipes.dir/Pipe.cpp.o
+.PHONY : Pipe.cpp.o
+
+Pipe.i: Pipe.cpp.i
+.PHONY : Pipe.i
+
+# target to preprocess a source file
+Pipe.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pipes.dir/build.make CMakeFiles/Pipes.dir/Pipe.cpp.i
+.PHONY : Pipe.cpp.i
+
+Pipe.s: Pipe.cpp.s
+.PHONY : Pipe.s
+
+# target to generate assembly for a file
+Pipe.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pipes.dir/build.make CMakeFiles/Pipes.dir/Pipe.cpp.s
+.PHONY : Pipe.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Pipes"
+	@echo "... Pipe.o"
+	@echo "... Pipe.i"
+	@echo "... Pipe.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

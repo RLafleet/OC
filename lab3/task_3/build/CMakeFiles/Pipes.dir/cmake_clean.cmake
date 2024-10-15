@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Pipes.dir/Pipe.cpp.o"
+  "CMakeFiles/Pipes.dir/Pipe.cpp.o.d"
   "CMakeFiles/Pipes.dir/main.cpp.o"
   "CMakeFiles/Pipes.dir/main.cpp.o.d"
   "Pipes"

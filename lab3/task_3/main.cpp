@@ -9,56 +9,27 @@
 #include <system_error>
 #include <cstring>
 #include <numeric>
+#include "Pipe.h"
 
-class Pipe {
-public:
-    Pipe() {
-        if (pipe(fds) == -1) {
-            throw std::system_error(errno, std::generic_category(), "Pipe creation failed");
-        }
-    }
-
-    ~Pipe() {
-        close(fds[0]);
-        close(fds[1]);
-    }
-
-    int read_fd() const { return fds[0]; }
-    int write_fd() const { return fds[1]; }
-
-private:
-    int fds[2];
-};
-
-void send_message(int fd, const std::string& message) {
-    if (write(fd, message.c_str(), message.size() + 1) == -1) {
-        throw std::system_error(errno, std::generic_category(), "Write to pipe failed");
-    }
-}
-
-std::string receive_message(int fd) {
-    char buffer[256];
-    ssize_t bytesRead = read(fd, buffer, sizeof(buffer));
-    if (bytesRead == -1) {
-        throw std::system_error(errno, std::generic_category(), "Read from pipe failed");
-    }
-    return std::string(buffer);
-}
-
-std::string handle_add(const std::vector<int>& numbers) {
+std::string HandleAdd(const std::vector<int>& numbers)
+{
     int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
     return "sum is " + std::to_string(sum);
 }
 
-std::string handle_longest_word(const std::string& filename) {
+std::string HandleLongestWord(const std::string& filename)
+{
     std::ifstream file(filename);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         return "Failed to open file";
     }
 
     std::string longest, word;
-    while (file >> word) {
-        if (word.size() > longest.size()) {
+    while (file >> word)
+    {
+        if (word.size() > longest.size())
+        {
             longest = word;
         }
     }
@@ -66,69 +37,80 @@ std::string handle_longest_word(const std::string& filename) {
     return longest.empty() ? "" : longest;
 }
 
-int main() {
-    Pipe parent_to_child;
-    Pipe child_to_parent;
+int main()
+{
+    Pipe parentToChild;
+    Pipe childToParent;
 
     pid_t pid = fork();
-    if (pid == -1) {
+    if (pid == -1)
+    {
         throw std::system_error(errno, std::generic_category(), "Fork failed");
     }
 
-    if (pid == 0) {
-        close(parent_to_child.write_fd());
-        close(child_to_parent.read_fd());
+    if (pid == 0)
+    {
+        close(parentToChild.WriteFd());
+        close(childToParent.ReadFd());
 
-        while (true) {
-            std::string command = receive_message(parent_to_child.read_fd());
+        while (true)
+        {
+            std::string command = ReceiveMessage(parentToChild.ReadFd());
 
             std::istringstream iss(command);
             std::string cmd;
             iss >> cmd;
 
-            if (cmd == "add") {
+            if (cmd == "add")
+            {
                 std::vector<int> numbers;
                 int num;
-                while (iss >> num) {
+                while (iss >> num)
+                {
                     numbers.push_back(num);
                 }
-                std::string result = handle_add(numbers);
-                send_message(child_to_parent.write_fd(), result);
+                std::string result = HandleAdd(numbers);
+                SendMessage(childToParent.WriteFd(), result);
             }
-            else if (cmd == "longest_word") {
+            else if (cmd == "longest_word")
+            {
                 std::string filename;
                 iss >> filename;
-                std::string result = handle_longest_word(filename);
-                send_message(child_to_parent.write_fd(), result);
+                std::string result = HandleLongestWord(filename);
+                SendMessage(childToParent.WriteFd(), result);
             }
-            else if (cmd == "exit") {
+            else if (cmd == "exit")
+            {
                 break;
             }
         }
 
-        close(parent_to_child.read_fd());
-        close(child_to_parent.write_fd());
-        _exit(0);
+        close(parentToChild.ReadFd());
+        close(childToParent.WriteFd());
+        return 0;
     }
-    else {
-        close(parent_to_child.read_fd());
-        close(child_to_parent.write_fd());
+    else
+    {
+        close(parentToChild.ReadFd());
+        close(childToParent.WriteFd());
 
         std::string line;
-        while (true) {
+        while (true)
+        {
             std::getline(std::cin, line);
-            if (line == "exit") {
-                send_message(parent_to_child.write_fd(), line);
+            if (line == "exit")
+            {
+                SendMessage(parentToChild.WriteFd(), line);
                 break;
             }
 
-            send_message(parent_to_child.write_fd(), line);
-            std::string result = receive_message(child_to_parent.read_fd());
+            SendMessage(parentToChild.WriteFd(), line);
+            std::string result = ReceiveMessage(childToParent.ReadFd());
             std::cout << result << std::endl;
         }
 
-        close(parent_to_child.write_fd());
-        close(child_to_parent.read_fd());
+        close(parentToChild.WriteFd());
+        close(childToParent.ReadFd());
     }
 
     return 0;

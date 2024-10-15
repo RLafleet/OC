@@ -240,8 +240,16 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
   /usr/include/linux/close_range.h \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
-  /usr/include/strings.h
+  /usr/include/strings.h \
+  /usr/include/c++/11/numeric \
+  /usr/include/c++/11/bits/stl_numeric.h \
+  /usr/include/c++/11/bit \
+  /usr/include/c++/11/limits \
+  /usr/include/c++/11/pstl/glue_numeric_defs.h \
+  ../Pipe.h
 
+
+../Pipe.h:
 
 /usr/include/string.h:
 
@@ -275,6 +283,8 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/array:
 
+/usr/include/c++/11/limits:
+
 /usr/include/c++/11/bits/ranges_util.h:
 
 /usr/include/c++/11/bits/stl_relops.h:
@@ -282,6 +292,8 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/bits/vector.tcc:
 
 /usr/include/c++/11/bits/stl_bvector.h:
+
+/usr/include/c++/11/bits/stl_numeric.h:
 
 /usr/include/c++/11/bits/stl_uninitialized.h:
 
@@ -420,6 +432,8 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/bits/concept_check.h:
 
 /usr/include/stdint.h:
+
+/usr/include/c++/11/pstl/glue_numeric_defs.h:
 
 /usr/include/c++/11/bits/exception.h:
 
@@ -689,9 +703,13 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
+/usr/include/c++/11/bit:
+
 /usr/include/c++/11/bits/stl_iterator_base_types.h:
 
 /usr/include/c++/11/cstdlib:
+
+/usr/include/c++/11/numeric:
 
 /usr/include/strings.h:
 
