@@ -1,0 +1,3 @@
+/mnt/c/OC/lab3/task_1/CMakeFiles/MySignalHandler.dir
+/mnt/c/OC/lab3/task_1/CMakeFiles/edit_cache.dir
+/mnt/c/OC/lab3/task_1/CMakeFiles/rebuild_cache.dir
