@@ -1,0 +1,3 @@
+/mnt/c/oc/lab3/task_3/build/CMakeFiles/Pipes.dir
+/mnt/c/oc/lab3/task_3/build/CMakeFiles/edit_cache.dir
+/mnt/c/oc/lab3/task_3/build/CMakeFiles/rebuild_cache.dir
