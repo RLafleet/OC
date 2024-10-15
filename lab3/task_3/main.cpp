@@ -10,32 +10,7 @@
 #include <cstring>
 #include <numeric>
 #include "Pipe.h"
-
-std::string HandleAdd(const std::vector<int>& numbers)
-{
-    int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
-    return "sum is " + std::to_string(sum);
-}
-
-std::string HandleLongestWord(const std::string& filename)
-{
-    std::ifstream file(filename);
-    if (!file.is_open())
-    {
-        return "Failed to open file";
-    }
-
-    std::string longest, word;
-    while (file >> word)
-    {
-        if (word.size() > longest.size())
-        {
-            longest = word;
-        }
-    }
-
-    return longest.empty() ? "" : longest;
-}
+#include "utils.cpp"
 
 int main()
 {
@@ -72,7 +47,7 @@ int main()
                 std::string result = HandleAdd(numbers);
                 SendMessage(childToParent.WriteFd(), result);
             }
-            else if (cmd == "longest_word")
+            else if (cmd == "longestWord")
             {
                 std::string filename;
                 iss >> filename;
