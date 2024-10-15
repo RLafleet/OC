@@ -1,0 +1,128 @@
+﻿#ifdef __linux__
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <thread>
+#include <csignal>
+#include <filesystem>
+
+// Для работы с файлами и директориями (стандарт С++17)
+namespace fs = std::filesystem;
+
+// Глобальный флаг для управления завершением программы
+std::atomic_bool exitRequested = false;
+
+// Имя файла для удаления
+const std::string tempFileName = "temp.txt";
+
+// Обработчик сигналов
+void SignalHandler(int signum) {
+    if (signum == SIGINT || signum == SIGTERM) {
+        std::cout << "Received signal " << signum << ", exiting gracefully." << std::endl;
+        exitRequested = true;
+    }
+}
+
+int main() {
+    // Установка обработчиков сигналов с использованием sigaction
+    struct sigaction action;
+    action.sa_handler = SignalHandler;
+    sigemptyset(&action.sa_mask);
+    action.sa_flags = 0;
+
+    sigaction(SIGINT, &action, nullptr);
+    sigaction(SIGTERM, &action, nullptr);
+
+    // Создание файла temp.txt в текущей директории
+    std::ofstream tempFile(tempFileName);
+    if (!tempFile.is_open()) {
+        std::cerr << "Failed to create " << tempFileName << std::endl;
+        return 1;
+    }
+    tempFile.close();
+
+    // Цикл вывода чисел от 0 до 100 каждую секунду
+    for (int i = 0; i <= 100; ++i) {
+        if (exitRequested) {
+            break;
+        }
+        std::cout << i << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+
+    // Удаление файла temp.txt перед завершением программы
+    if (fs::exists(tempFileName)) {
+        fs::remove(tempFileName);
+        std::cout << "File " << tempFileName << " deleted successfully." << std::endl;
+    }
+
+    // Вывод завершающего сообщения
+    std::cout << "Done" << std::endl;
+
+    return 0;
+}
+
+#elif defined(_WIN32)
+
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <thread>
+#include <csignal>
+#include <atomic>
+#include <filesystem>
+#include <windows.h>
+
+// Глобальный флаг для управления завершением программы
+std::atomic_bool exitRequested = false;
+
+// Имя файла для удаления
+const std::string tempFileName = "temp.txt";
+
+// Обработчик сигналов
+void SignalHandler(int signum) {
+    if (signum == SIGINT || signum == SIGTERM) {
+        std::cout << "Received signal " << signum << ", exiting gracefully." << std::endl;
+        exitRequested = true;
+    }
+}
+
+// Функция для установки обработчиков сигналов в Windows
+void SetupSignalHandlers() {
+    signal(SIGINT, SignalHandler);
+    signal(SIGTERM, SignalHandler);
+}
+
+int main() {
+    SetupSignalHandlers();
+
+    // Создание файла temp.txt в текущей директории
+    std::ofstream tempFile(tempFileName);
+    if (!tempFile.is_open()) {
+        std::cerr << "Failed to create " << tempFileName << std::endl;
+        return 1;
+    }
+    tempFile.close();
+
+    // Цикл вывода чисел от 0 до 100 каждую секунду
+    for (int i = 0; i <= 100; ++i) {
+        if (exitRequested) {
+            break;
+        }
+        std::cout << i << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+
+    // Удаление файла temp.txt перед завершением программы
+    if (std::filesystem::exists(tempFileName)) {
+        std::filesystem::remove(tempFileName);
+        std::cout << "File " << tempFileName << " deleted successfully." << std::endl;
+    }
+
+    // Вывод завершающего сообщения
+    std::cout << "Done" << std::endl;
+
+    return 0;
+}
+
+#endif // __linux__
