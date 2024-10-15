@@ -3,60 +3,56 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include <algorithm>
-#include <fstream>
 #include <unistd.h>
-#include <system_error>
-#include <cstring>
-#include <numeric>
 #include "Pipe.h"
 #include "utils.cpp"
 
-int main()
+int main() 
 {
-    Pipe parentToChild;
-    Pipe childToParent;
+    Pipe parentToChild;  
+    Pipe childToParent;  
 
-    pid_t pid = fork();
-    if (pid == -1)
+    pid_t pid = fork();  
+    if (pid == -1) 
     {
         throw std::system_error(errno, std::generic_category(), "Fork failed");
     }
 
-    if (pid == 0)
-    {
-        close(parentToChild.WriteFd());
-        close(childToParent.ReadFd());
+    if (pid == 0) 
+    {  
+        close(parentToChild.WriteFd());  
+        close(childToParent.ReadFd());   
 
-        while (true)
+        while (true) 
         {
-            std::string command = ReceiveMessage(parentToChild.ReadFd());
+            std::string command = ReceiveMessage(parentToChild.ReadFd()); 
 
             std::istringstream iss(command);
             std::string cmd;
             iss >> cmd;
 
-            if (cmd == "add")
+            if (cmd == "add") 
             {
                 std::vector<int> numbers;
                 int num;
-                while (iss >> num)
+                while (iss >> num) 
                 {
                     numbers.push_back(num);
                 }
-                std::string result = HandleAdd(numbers);
-                SendMessage(childToParent.WriteFd(), result);
+
+                int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
+                SendData(childToParent.WriteFd(), sum);
             }
-            else if (cmd == "longestWord")
+            else if (cmd == "longestWord") 
             {
                 std::string filename;
                 iss >> filename;
                 std::string result = HandleLongestWord(filename);
-                SendMessage(childToParent.WriteFd(), result);
+                SendMessage(childToParent.WriteFd(), result); 
             }
-            else if (cmd == "exit")
+            else if (cmd == "exit") 
             {
-                break;
+                break;  
             }
         }
 
@@ -64,24 +60,33 @@ int main()
         close(childToParent.WriteFd());
         return 0;
     }
-    else
-    {
-        close(parentToChild.ReadFd());
-        close(childToParent.WriteFd());
+    else 
+    {  
+        close(parentToChild.ReadFd());  
+        close(childToParent.WriteFd()); 
 
         std::string line;
-        while (true)
+        while (true) 
         {
-            std::getline(std::cin, line);
-            if (line == "exit")
+            std::getline(std::cin, line);  
+            if (line == "exit") 
             {
                 SendMessage(parentToChild.WriteFd(), line);
                 break;
             }
 
-            SendMessage(parentToChild.WriteFd(), line);
-            std::string result = ReceiveMessage(childToParent.ReadFd());
-            std::cout << result << std::endl;
+            SendMessage(parentToChild.WriteFd(), line);  
+
+            if (line.find("add") == 0) 
+            {
+                int result = ReceiveData<int>(childToParent.ReadFd());  
+                std::cout << "sum is " << result << std::endl;
+            }
+            else if (line.find("longestWord") == 0) 
+            {
+                std::string result = ReceiveMessage(childToParent.ReadFd());
+                std::cout << result << std::endl;
+            }
         }
 
         close(parentToChild.WriteFd());
@@ -90,4 +95,5 @@ int main()
 
     return 0;
 }
+
 #endif // __linux__

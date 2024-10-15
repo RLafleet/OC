@@ -405,36 +405,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/bits/stl_vector.h \
   /usr/include/c++/11/bits/stl_bvector.h \
   /usr/include/c++/11/bits/vector.tcc \
-  /usr/include/c++/11/algorithm \
-  /usr/include/c++/11/utility \
-  /usr/include/c++/11/bits/stl_relops.h \
-  /usr/include/c++/11/bits/ranges_algo.h \
-  /usr/include/c++/11/bits/ranges_algobase.h \
-  /usr/include/c++/11/iterator \
-  /usr/include/c++/11/bits/stream_iterator.h \
-  /usr/include/c++/11/bits/invoke.h \
-  /usr/include/c++/11/bits/ranges_util.h \
-  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
-  /usr/include/c++/11/functional \
-  /usr/include/c++/11/tuple \
-  /usr/include/c++/11/array \
-  /usr/include/c++/11/bits/uses_allocator.h \
-  /usr/include/c++/11/bits/refwrap.h \
-  /usr/include/c++/11/bits/std_function.h \
-  /usr/include/c++/11/unordered_map \
-  /usr/include/c++/11/ext/aligned_buffer.h \
-  /usr/include/c++/11/bits/hashtable.h \
-  /usr/include/c++/11/bits/hashtable_policy.h \
-  /usr/include/c++/11/bits/enable_special_members.h \
-  /usr/include/c++/11/bits/node_handle.h \
-  /usr/include/c++/11/bits/unordered_map.h \
-  /usr/include/c++/11/bits/erase_if.h \
-  /usr/include/c++/11/pstl/execution_defs.h \
-  /usr/include/c++/11/fstream \
-  /usr/include/c++/11/bits/codecvt.h \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
-  /usr/include/c++/11/bits/fstream.tcc \
   /usr/include/unistd.h \
   /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
   /usr/include/x86_64-linux-gnu/bits/environments.h \
@@ -443,48 +413,18 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
   /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
   /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
   /usr/include/linux/close_range.h \
+  ../Pipe.h \
   /usr/include/c++/11/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
-  /usr/include/c++/11/numeric \
-  /usr/include/c++/11/bits/stl_numeric.h \
-  /usr/include/c++/11/bit \
-  /usr/include/c++/11/limits \
-  /usr/include/c++/11/pstl/glue_numeric_defs.h \
-  ../Pipe.h
+  ../utils.cpp
 
 
-/usr/include/c++/11/bits/fstream.tcc:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
-
-/usr/include/c++/11/bits/erase_if.h:
-
-/usr/include/c++/11/bits/enable_special_members.h:
-
-/usr/include/c++/11/bits/hashtable_policy.h:
-
-/usr/include/c++/11/bits/hashtable.h:
-
-/usr/include/c++/11/bits/refwrap.h:
-
-/usr/include/c++/11/bits/uses_allocator.h:
-
-/usr/include/c++/11/array:
-
-/usr/include/c++/11/limits:
-
-/usr/include/c++/11/bits/ranges_util.h:
-
-/usr/include/c++/11/bits/stl_relops.h:
+../utils.cpp:
 
 /usr/include/c++/11/bits/vector.tcc:
 
 /usr/include/c++/11/bits/stl_bvector.h:
-
-/usr/include/c++/11/bits/stl_numeric.h:
 
 /usr/include/c++/11/bits/stl_uninitialized.h:
 
@@ -517,8 +457,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/bits/locale_classes.h:
 
 /usr/include/c++/11/bits/ios_base.h:
-
-/usr/include/c++/11/iterator:
 
 /usr/include/c++/11/ostream:
 
@@ -562,15 +500,11 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
-/usr/include/c++/11/bits/invoke.h:
-
 /usr/include/x86_64-linux-gnu/bits/timex.h:
 
 /usr/include/time.h:
 
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
-
-/usr/include/c++/11/bits/unordered_map.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
@@ -604,8 +538,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/bits/exception_defines.h:
 
-/usr/include/c++/11/pstl/glue_numeric_defs.h:
-
 /usr/include/c++/11/bits/exception.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
@@ -638,15 +570,11 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
-/usr/include/c++/11/tuple:
-
 /usr/include/c++/11/type_traits:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/c++/11/string:
-
-/usr/include/c++/11/pstl/glue_algorithm_defs.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
 
@@ -682,8 +610,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
-/usr/include/c++/11/pstl/execution_defs.h:
-
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
 /usr/include/asm-generic/errno.h:
@@ -705,8 +631,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h:
-
-/usr/include/c++/11/utility:
 
 /usr/include/errno.h:
 
@@ -738,8 +662,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
-/usr/include/c++/11/functional:
-
 /usr/include/asm-generic/errno-base.h:
 
 /usr/include/c++/11/bits/char_traits.h:
@@ -754,11 +676,7 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/ext/numeric_traits.h:
 
-/usr/include/c++/11/bits/ranges_algobase.h:
-
 /usr/include/c++/11/bits/iterator_concepts.h:
-
-/usr/include/c++/11/bits/node_handle.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
@@ -774,15 +692,11 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/iosfwd:
 
-/usr/include/c++/11/bits/codecvt.h:
-
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
-
-/usr/include/c++/11/bits/std_function.h:
 
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
@@ -791,8 +705,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/pstl/pstl_config.h:
 
 ../Pipe.h:
-
-/usr/include/c++/11/numeric:
 
 /usr/include/c++/11/bits/sstream.tcc:
 
@@ -834,8 +746,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/bits/stl_iterator_base_funcs.h:
 
-/usr/include/c++/11/bits/stream_iterator.h:
-
 /usr/include/ctype.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
@@ -866,8 +776,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
-/usr/include/c++/11/bits/ranges_algo.h:
-
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
 /usr/include/c++/11/bits/stl_algo.h:
@@ -875,8 +783,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
-
-/usr/include/c++/11/unordered_map:
 
 /usr/include/c++/11/cctype:
 
@@ -900,21 +806,15 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
-/usr/include/c++/11/fstream:
-
 /usr/include/c++/11/ext/alloc_traits.h:
 
 /usr/include/c++/11/bits/cxxabi_forced.h:
-
-/usr/include/c++/11/algorithm:
 
 /usr/include/c++/11/iostream:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
 /usr/include/c++/11/backward/binders.h:
-
-/usr/include/c++/11/bit:
 
 /usr/include/c++/11/bits/stl_iterator_base_types.h:
 
@@ -929,8 +829,6 @@ CMakeFiles/Pipes.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
-/usr/include/c++/11/ext/aligned_buffer.h:
 
 /usr/include/endian.h:
 

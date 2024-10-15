@@ -15,12 +15,13 @@ public:
     int ReadFd() const;
     int WriteFd() const;
 
+    Pipe(const Pipe&) = delete;
+    Pipe& operator=(const Pipe&) = delete;
+    Pipe(Pipe&&) = delete;
+    Pipe& operator=(Pipe&&) = delete;
 private:
     int fds[2];
 };
-
-void SendMessage(int fd, const std::string& message);
-std::string ReceiveMessage(int fd);
 
 #endif // PIPE_H
 #endif // __linux__
