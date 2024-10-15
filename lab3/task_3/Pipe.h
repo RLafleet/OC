@@ -1,4 +1,4 @@
-#ifndef PIPE_H
+﻿#ifndef PIPE_H
 #define PIPE_H
 #ifdef __linux__
 
@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <cstring>
 
+// обертка с одним файловым дескриптором
 class Pipe
 {
 public:

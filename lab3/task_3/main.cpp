@@ -10,6 +10,7 @@
 #include "utils.cpp"
 #include <span>
 
+//main разбить на функции
 int main() 
 {
     Pipe parentToChild;  

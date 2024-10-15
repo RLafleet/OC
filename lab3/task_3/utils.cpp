@@ -52,12 +52,15 @@ std::string ReceiveString(int fd)
 {
     size_t len;
     std::vector<uint8_t> lenBuffer = ReceiveSpan(fd, sizeof(len));  
+    //проверить пустой ли буфер
     std::memcpy(&len, lenBuffer.data(), sizeof(len));
 
     std::vector<uint8_t> strBuffer = ReceiveSpan(fd, len);          
     return std::string(reinterpret_cast<char*>(strBuffer.data()), len);
 }
 
+
+// разбить по-другому по файлам
 std::string HandleAdd(const std::vector<int>& numbers) 
 {
     int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
