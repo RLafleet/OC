@@ -9,15 +9,15 @@
 
 std::vector<pid_t> children;
 
-void signalHandler(int signum) 
+void SignalHandler(int signum) 
 {
     std::cout << "Child process " << getpid() << " received signal " << signum << "\n";
 }
 
-void childProcess()
+void ChildProcess()
 {
-    signal(SIGTERM, signalHandler);
-    signal(SIGINT, signalHandler);
+    signal(SIGTERM, SignalHandler);
+    signal(SIGINT, SignalHandler);
 
     pid_t pid = getpid();
     while (true)
@@ -45,7 +45,7 @@ int main()
             pid_t pid = fork();
             if (pid == 0)
             {
-                childProcess();
+                ChildProcess();
                 return 0;
             }
             else if (pid > 0)
