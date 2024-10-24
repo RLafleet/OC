@@ -12,11 +12,7 @@ std::string CurrentTimeToString()
     using Clock = std::chrono::system_clock;
     auto t = Clock::to_time_t(Clock::now());
     struct tm buf;
-#ifdef _MSC_VER
     localtime_s(&buf, &t);
-#else
-    localtime_r(&t, &buf);
-#endif
     std::ostringstream os;
     os << std::setw(2) << std::setfill('0') << buf.tm_hour << ":"
         << std::setw(2) << std::setfill('0') << buf.tm_min << ":"
@@ -24,7 +20,7 @@ std::string CurrentTimeToString()
     return os.str();
 }
 
-void Tic(std::stop_token st) 
+void Tic(std::stop_token st)  
 {
     while (!st.stop_requested()) 
     {
@@ -56,8 +52,6 @@ int main() {
 
     std::string input;
     std::getline(std::cin, input);
-
-    // `std::jthread` автоматически передает stop_token в функцию потока
-
+    
     return 0;
 }
