@@ -1,6 +1,7 @@
 #include "FlipCase.h"
 
-FlipCase::FlipCase(const std::string& input, std::mutex& m) : inputFileName(input), outputFileName(input + ".out"), io_mutex(m) {}
+FlipCase::FlipCase(const std::string& input)
+    : inputFileName(input), outputFileName(input + ".out") {}
 
 char FlipCase::FlipCaseC(char newChar)
 {
@@ -30,13 +31,12 @@ void FlipCase::ProcessFile()
             outputFile.get().put(FlipCaseC(ch));
         }
 
-        std::lock_guard<std::mutex> lock(io_mutex);
-        std::cout << "Processed: " << inputFileName << " into " << outputFileName << std::endl;
-
+        std::osyncstream(std::cout) << "Processed: " << inputFileName
+            << " into " << outputFileName << std::endl;
     }
     catch (const std::exception& e)
     {
-        std::lock_guard<std::mutex> lock(io_mutex);
-        std::cerr << "Error processing file " << inputFileName << ": " << e.what() << std::endl;
+        std::osyncstream(std::cerr) << "Error processing file "
+            << inputFileName << ": " << e.what() << std::endl;
     }
 }

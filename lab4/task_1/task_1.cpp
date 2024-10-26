@@ -1,5 +1,5 @@
 ﻿#include "FlipCase.h"
-
+// объяснить разницу между процессом и поток
 int main(int argc, char* argv[]) 
 {
     if (argc < 2) 
@@ -8,22 +8,25 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::mutex io_mutex;
-    std::vector<std::thread> threads;
+    std::vector<std::jthread> jthreads;
 
     for (int i = 1; i < argc; ++i) 
     {
-        threads.emplace_back([&io_mutex, inputFile = std::string(argv[i])] 
-            {
-            FlipCase flipCaseTask(inputFile, io_mutex);
+        // io mutex. Использовать osyncstream
+        // чем отлтичается jthread
+        jthreads.emplace_back([inputFile = std::string(argv[i])]
+        {
+            FlipCase flipCaseTask(inputFile);
             flipCaseTask.ProcessFile();
-            });
+        });
     }
 
-    for (auto& thread : threads) 
-    {
-        thread.join();
-    }
+    // разобраться что произойдет если не будет этого
+
+    //for (auto& thread : threads) 
+    //{
+        //thread.join();
+    //}
 
     return 0;
 }

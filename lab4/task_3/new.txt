@@ -1,0 +1,321 @@
+﻿#include <iostream>
+#include <fstream>
+#include <vector>
+#include <random>
+#include <algorithm>
+#include <thread>
+#include <chrono>
+#include <cassert>
+#include <numeric>
+#include <future>
+#include <execution>
+#include <iterator>
+
+// Генерация случайных 64-битных чисел
+void generate_random_numbers(const std::string& output_file, std::size_t size) {
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<int64_t> dist;
+
+    std::ofstream file(output_file);
+    if (!file) {
+        std::cerr << "Error: failed to open file.\n";
+        return;
+    }
+
+    for (std::size_t i = 0; i < size; ++i) {
+        file << dist(gen) << '\n';
+    }
+}
+
+// Загрузка чисел из файла
+std::vector<int64_t> load_numbers(const std::string& input_file) {
+    std::vector<int64_t> numbers;
+    std::ifstream file(input_file);
+    if (!file) {
+        std::cerr << "Error: failed to open file.\n";
+        return numbers;
+    }
+
+    int64_t number;
+    while (file >> number) {
+        numbers.push_back(number);
+    }
+    return numbers;
+}
+
+// Многопоточная сортировка слиянием
+void merge_sort_parallel(std::vector<int64_t>& data, int num_threads) {
+    auto size = data.size();
+    auto chunk_size = size / num_threads;
+
+    std::vector<std::jthread> threads;
+    std::vector<std::pair<std::size_t, std::size_t>> ranges;
+
+    // Разбиение данных на части
+    for (int i = 0; i < num_threads; ++i) {
+        std::size_t begin = i * chunk_size;
+        std::size_t end = (i == num_threads - 1) ? size : (i + 1) * chunk_size;
+        ranges.emplace_back(begin, end);
+    }
+
+    // Запуск сортировки в нескольких потоках
+    for (int i = 0; i < num_threads; ++i) {
+        threads.emplace_back([&, i]() {
+            std::sort(data.begin() + ranges[i].first, data.begin() + ranges[i].second);
+            });
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+    // Параллельное слияние частей
+    while (ranges.size() > 1) {
+        std::vector<std::pair<std::size_t, std::size_t>> new_ranges;
+        for (std::size_t i = 0; i < ranges.size(); i += 2) {
+            if (i + 1 < ranges.size()) {
+                std::inplace_merge(data.begin() + ranges[i].first, data.begin() + ranges[i].second, data.begin() + ranges[i + 1].second);
+                new_ranges.emplace_back(ranges[i].first, ranges[i + 1].second);
+            }
+            else {
+                new_ranges.push_back(ranges[i]);
+            }
+        }
+        ranges = std::move(new_ranges);
+    }
+}
+
+// Замер времени сортировки
+void measure_sort_time(std::vector<int64_t>& data, int num_threads) {
+    auto original_data = data;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+    merge_sort_parallel(data, num_threads);
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end_time - start_time;
+    std::cout << "Sorted from time with " << num_threads << " threads: " << elapsed.count() << " seconds\n";
+
+    assert(std::is_sorted(data.begin(), data.end()));
+    data = std::move(original_data);
+}
+
+// Основная программа
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cerr << "Not correct number of arguments.\n";
+        return 1;
+    }
+
+    std::string command = argv[1];
+
+    if (command == "-h" || command == "--help") {
+        std::cout << "Usage:\n"
+            << "  sorter generate OUTPUT_FILE SIZE\n"
+            << "  sorter sort INPUT_FILE OUTPUT_FILE NUM_THREADS\n";
+    }
+    else if (command == "generate" && argc == 4) {
+        std::string output_file = argv[2];
+        std::size_t size = std::stoull(argv[3]);
+        generate_random_numbers(output_file, size);
+    }
+    else if (command == "sort" && argc == 5) {
+        std::string input_file = argv[2];
+        std::string output_file = argv[3];
+        int num_threads = std::stoi(argv[4]);
+
+        auto data = load_numbers(input_file);
+        if (data.empty()) {
+            std::cerr << "Error: failed to load data from file.\n";
+            return 1;
+        }
+
+        for (int threads = 1; threads <= num_threads; ++threads) {
+            measure_sort_time(data, threads);
+        }
+
+        std::ofstream outfile(output_file);
+        for (const auto& num : data) {
+            outfile << num << '\n';
+        }
+    }
+    else {
+        std::cerr << "Incorrect command format. Usage -h.\n";
+        return 1;
+    }
+
+    return 0;
+}
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <random>
+#include <algorithm>
+#include <thread>
+#include <chrono>
+#include <cassert>
+#include <numeric>
+#include <iterator>
+
+void generate_random_numbers(const std::string& output_file, std::size_t size) 
+{
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<int64_t> dist;
+
+    std::ofstream file(output_file);
+    if (!file) 
+    {
+        std::cerr << "Error: failed to open file.\n";
+        return;
+    }
+
+    for (std::size_t i = 0; i < size; ++i) 
+    {
+        file << dist(gen) << '\n';
+    }
+}
+
+std::vector<int64_t> load_numbers(const std::string& input_file) 
+{
+    std::vector<int64_t> numbers;
+    std::ifstream file(input_file);
+    if (!file) 
+    {
+        std::cerr << "Error: failed to open file.\n";
+        return numbers;
+    }
+
+    int64_t number;
+    while (file >> number) 
+    {
+        numbers.push_back(number);
+    }
+    return numbers;
+}
+
+void parallel_sort(std::vector<int64_t>& data, std::size_t begin, std::size_t end) 
+{
+    std::sort(data.begin() + begin, data.begin() + end);
+}
+
+void parallel_merge(std::vector<int64_t>& data, std::size_t begin1, std::size_t end1, std::size_t end2) 
+{
+    std::inplace_merge(data.begin() + begin1, data.begin() + end1, data.begin() + end2);
+}
+
+void merge_sort_parallel(std::vector<int64_t>& data, int num_threads) 
+{
+    auto size = data.size();
+    auto chunk_size = size / num_threads;
+
+    std::vector<std::jthread> threads;
+    std::vector<std::pair<std::size_t, std::size_t>> ranges;
+
+    for (int i = 0; i < num_threads; ++i) 
+    {
+        std::size_t begin = i * chunk_size;
+        std::size_t end = (i == num_threads - 1) ? size : (i + 1) * chunk_size;
+        ranges.emplace_back(begin, end);
+    }
+
+    for (int i = 0; i < num_threads; ++i) 
+    {
+        threads.emplace_back([&, i]() 
+            {
+            parallel_sort(data, ranges[i].first, ranges[i].second);
+            });
+    }
+
+    for (auto& thread : threads) 
+    {
+        thread.join();
+    }
+
+    while (ranges.size() > 1) 
+    {
+        std::vector<std::pair<std::size_t, std::size_t>> new_ranges;
+        for (std::size_t i = 0; i < ranges.size(); i += 2) 
+        {
+            if (i + 1 < ranges.size()) 
+            {
+                parallel_merge(data, ranges[i].first, ranges[i].second, ranges[i + 1].second);
+                new_ranges.emplace_back(ranges[i].first, ranges[i + 1].second);
+            }
+            else 
+            {
+                new_ranges.push_back(ranges[i]);
+            }
+        }
+        ranges = std::move(new_ranges);
+    }
+}
+
+void measure_sort_time(std::vector<int64_t>& data, int num_threads) 
+{
+    auto original_data = data;
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+    merge_sort_parallel(data, num_threads);
+    auto end_time = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end_time - start_time;
+    std::cout << "Sorted from time with " << num_threads << " threads: " << elapsed.count() << " seconds\n";
+
+    assert(std::is_sorted(data.begin(), data.end()));
+    data = std::move(original_data);
+}
+
+int main(int argc, char* argv[]) 
+{
+    if (argc < 2) 
+    {
+        std::cerr << "Not correct number of arguments.\n";
+        return 1;
+    }
+
+    std::string command = argv[1];
+
+    if (command == "-h" || command == "--help") 
+    {
+        std::cout << "Usage:\n"
+            << "  sorter generate OUTPUT_FILE SIZE\n"
+            << "  sorter sort INPUT_FILE OUTPUT_FILE NUM_THREADS\n";
+    }
+    else if (command == "generate" && argc == 4) 
+    {
+        std::string output_file = argv[2];
+        std::size_t size = std::stoull(argv[3]);
+        generate_random_numbers(output_file, size);
+    }
+    else if (command == "sort" && argc == 5) 
+    {
+        std::string input_file = argv[2];
+        std::string output_file = argv[3];
+        int num_threads = std::stoi(argv[4]);
+
+        auto data = load_numbers(input_file);
+        if (data.empty()) {
+            std::cerr << "Error: failed to load data from file.\n";
+            return 1;
+        }
+
+        for (int threads = 1; threads <= num_threads; ++threads) {
+            measure_sort_time(data, threads);
+        }
+
+        std::ofstream outfile(output_file);
+        for (const auto& num : data) {
+            outfile << num << '\n';
+        }
+    }
+    else 
+    {
+        std::cerr << "Incorrect command format. Usage -h.\n";
+        return 1;
+    }
+
+    return 0;
+}

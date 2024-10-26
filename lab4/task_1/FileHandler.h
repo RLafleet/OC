@@ -11,11 +11,13 @@
 
 class FileHandler
 {
-    std::fstream file;
 public:
     FileHandler(const std::string& filename, std::ios::openmode mode);
     std::fstream& get();
     ~FileHandler();
+
+private:
+    std::fstream file;
 };
 
 #endif //FILE_HANDLER

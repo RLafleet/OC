@@ -8,18 +8,18 @@
 #include <stdexcept>
 #include <mutex>
 #include <filesystem>
+#include <syncstream>
 #include "FileHandler.h"
 
 class FlipCase
 {
 public:
-    FlipCase(const std::string& input, std::mutex& m);
+    FlipCase(const std::string& input);
     void ProcessFile();
 
 private:
     std::string inputFileName;
     std::string outputFileName;
-    std::mutex& io_mutex;
 
     char FlipCaseC(char newChar);
 };
