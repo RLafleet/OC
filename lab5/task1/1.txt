@@ -1,0 +1,118 @@
+#include <iostream>
+#include <unordered_set>
+#include <mutex>
+#include <shared_mutex>
+#include <thread>
+#include <chrono>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <iomanip>
+
+template <typename T, typename H = std::hash<T>, typename Comp = std::equal_to<T>>
+class ThreadsafeSet 
+{
+public:
+    void insert(const T& value) 
+    {
+        std::unique_lock lock(mutex_);
+        set_.insert(value);
+    }
+
+    bool contains(const T& value) const 
+    {
+        std::shared_lock lock(mutex_);
+        return set_.find(value) != set_.end();
+    }
+
+    std::vector<T> get_some_elements(size_t n) const 
+    {
+        std::shared_lock lock(mutex_);
+        std::vector<T> elements;
+        for (const auto& elem : set_) 
+        {
+            if (elements.size() >= n)
+            {
+                break;
+            }
+            elements.push_back(elem);
+        }
+        return elements;
+    }
+
+private:
+    mutable std::shared_mutex mutex_;
+    std::unordered_set<T, H, Comp> set_;
+};
+
+bool IsPrime(uint64_t number) 
+{
+    if (number <= 1)
+    {
+        return false;
+    }
+    if (number <= 3) 
+    {
+        return true;
+    }
+    if (number % 2 == 0 || number % 3 == 0)
+    {
+        return false;
+    }
+    for (uint64_t i = 5; i * i <= number; i += 6) 
+    {
+        if (number % i == 0 || number % (i + 2) == 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void FindPrimes(uint64_t start, uint64_t end, ThreadsafeSet<uint64_t>& primes) 
+{
+    for (uint64_t num = start; num < end; ++num) 
+    {
+        if (IsPrime(num)) 
+        {
+            primes.insert(num);
+        }
+    }
+}
+
+void MeasureAlgorithm(uint64_t upper_limit) 
+{
+    std::cout << "Upper limit: " << upper_limit << "\n";
+    for (int num_threads = 1; num_threads <= 16; ++num_threads) 
+    {
+        ThreadsafeSet<uint64_t> primes_multithread;
+
+        auto start_time = std::chrono::high_resolution_clock::now();
+
+        uint64_t chunk_size = upper_limit / num_threads;
+        std::vector<std::jthread> threads;
+
+        for (int i = 0; i < num_threads; ++i) 
+        {
+            uint64_t start = i * chunk_size;
+            uint64_t end = (i == num_threads - 1) ? upper_limit : (i + 1) * chunk_size;
+            threads.emplace_back(FindPrimes, start, end, std::ref(primes_multithread));
+        }
+
+        auto end_time = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+
+        std::cout << "Threads: " << std::setw(2) << num_threads << " | Time: " << duration << " ms\n";
+    }
+    std::cout << std::string(40, '-') << "\n";
+}
+
+int main() 
+{
+    std::vector<uint64_t> upper_limits = { 1'000'000, 10'000'000, 100'000'000 };
+    for (uint64_t upper_limit : upper_limits) 
+    {
+        MeasureAlgorithm(upper_limit);
+    }
+    return 0;
+}

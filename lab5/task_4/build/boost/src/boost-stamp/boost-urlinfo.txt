@@ -1,0 +1,12 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=url
+command=C:/Program Files/CMake/bin/cmake.exe;-P;C:/OC/lab5/task_4/build/boost/src/boost-stamp/download-boost.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-P;C:/OC/lab5/task_4/build/boost/src/boost-stamp/verify-boost.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-P;C:/OC/lab5/task_4/build/boost/src/boost-stamp/extract-boost.cmake
+source_dir=C:/OC/lab5/task_4/build/boost/src/boost
+work_dir=C:/OC/lab5/task_4/build/boost/src
+url(s)=https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_.tar.gz
+hash=
+no_extract=
+
