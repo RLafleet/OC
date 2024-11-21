@@ -28,7 +28,7 @@ void FlipCaseAndWrite(const std::string& inputFile)
     char ch;
     while (inFile.get(ch))
     {
-        unsigned char uc = static_cast<unsigned char>(ch);
+        wunsigned char uc = static_cast<unsigned char>(ch);
 
         if (std::isupper(uc)) 
         {
