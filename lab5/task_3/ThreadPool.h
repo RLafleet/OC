@@ -18,7 +18,10 @@ public:
     {
         for (unsigned i = 0; i < numThreads; ++i)
         {
-            m_workers.emplace_back([this]() { WorkerThread(); });
+            m_workers.emplace_back([this]() 
+                { 
+                    WorkerThread(); 
+                });
         }
     }
 
@@ -44,13 +47,13 @@ public:
             }
             m_tasks.push(std::move(task));
         }
-        m_cv.notify_one();
+        m_taskAvailable.notify_one();
     }
 
     void Wait() 
     {
         std::unique_lock<std::mutex> lock(m_mutex);
-        m_waitCv.wait(lock, [this]() { return m_tasks.empty() && m_activeTasks == 0; });
+        m_allTasksCompleted.wait(lock, [this]() { return m_tasks.empty() && m_activeTasks == 0; });
     }
 
     void Stop() 
@@ -59,15 +62,15 @@ public:
             std::lock_guard<std::mutex> lock(m_mutex);
             m_stopped = true;
         }
-        m_cv.notify_all();
+        m_taskAvailable.notify_all();
     }
 
 private:
     std::vector<std::thread> m_workers;
     std::queue<Task> m_tasks;
     std::mutex m_mutex;
-    std::condition_variable m_cv;
-    std::condition_variable m_waitCv;
+    std::condition_variable m_taskAvailable;
+    std::condition_variable m_allTasksCompleted;
     std::atomic<bool> m_stopped;
     std::atomic<int> m_activeTasks{ 0 };
 
@@ -77,7 +80,7 @@ private:
         --m_activeTasks;
         if (m_tasks.empty() && m_activeTasks == 0) 
         {
-            m_waitCv.notify_all();
+            m_allTasksCompleted.notify_all();
         }
     }
 
@@ -88,7 +91,7 @@ private:
             Task task;
             {
                 std::unique_lock<std::mutex> lock(m_mutex);
-                m_cv.wait(lock, [this]()
+                m_taskAvailable.wait(lock, [this]()
                     {
                         return m_stopped || !m_tasks.empty();
                     }
