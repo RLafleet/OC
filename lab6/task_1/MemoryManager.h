@@ -1,63 +1,144 @@
-﻿#include <cassert>
-#include <cstddef>
-#include <cstring>
+﻿#include <cstddef>
+#include <cstdint>
 #include <new>
+#include <cassert>
 #include <mutex>
+#include <algorithm>
+
+#include <iostream>
+
+#define LOG(msg) std::cout << msg << std::endl;
 
 class MemoryManager
 {
 public:
+    // Инициализирует менеджер памяти непрерывным блоком size байт,
+    // начиная с адреса start.
+    // Возвращает true в случае успеха и false в случае ошибки
+    // Методы Allocate и Free должны работать с этим блоком памяти для хранения данных.
+    // Указатель start должен быть выровнен по адресу, кратному sizeof(std::max_align_t)
     MemoryManager(void* start, size_t size) noexcept
-        : m_start(static_cast<char*>(start))
-        , m_size(size)
-        , m_offset(0)
+        : m_start(static_cast<uint8_t*>(start)), m_size(size)
     {
-        // Проверка выравнивания
         assert(reinterpret_cast<uintptr_t>(start) % alignof(std::max_align_t) == 0);
-        // Блок памяти должен быть достаточно большим для работы
-        assert(size >= sizeof(std::max_align_t));
+        assert(size >= sizeof(BlockHeader));
+
+        auto initialBlock = reinterpret_cast<BlockHeader*>(m_start);
+        initialBlock->size = size - sizeof(BlockHeader);
+        initialBlock->next = nullptr;
+        m_freeStart = initialBlock;
     }
 
-    MemoryManager(const MemoryManager&) = delete;
-    MemoryManager& operator=(const MemoryManager&) = delete;
-
+    // Выделяет блок памяти внутри размером size байт и возвращает адрес выделенного
+    // блока памяти. Возвращённый указатель должен быть выровнен по адресу, кратному align.
+    // Параметр align должен быть степенью числа 2.
+    // В случае ошибки (нехватка памяти, невалидные параметры) возвращает nullptr.
+    // Полученный таким образом блок памяти должен быть позднее освобождён методом Free
     void* Allocate(size_t size, size_t align = alignof(std::max_align_t)) noexcept
     {
-        if (size == 0 || !IsPowerOfTwo(align))
+        if (size == 0 || (align & (align - 1)) != 0) 
+        {
             return nullptr;
+        }
 
         std::lock_guard<std::mutex> lock(m_mutex);
 
-        uintptr_t currentAddress = reinterpret_cast<uintptr_t>(m_start + m_offset);
-        uintptr_t alignedAddress = AlignUp(currentAddress, align);
+        BlockHeader* prev = nullptr;
+        BlockHeader* current = m_freeStart;
 
-        size_t padding = alignedAddress - currentAddress;
-        if (m_offset + padding + size > m_size)
-            return nullptr;
+        while (current)
+        {
+            uintptr_t blockStart = reinterpret_cast<uintptr_t>(current + 1);
+            uintptr_t alignedStart = (blockStart + (align - 1)) & ~(align - 1);
+            size_t padding = alignedStart - blockStart;
 
-        m_offset += padding + size;
-        return reinterpret_cast<void*>(alignedAddress);
+            if (current->size >= size + padding)
+            {
+                size_t remainingSize = current->size - (size + padding);
+                if (remainingSize >= sizeof(BlockHeader))
+                {
+                    auto newBlock = reinterpret_cast<BlockHeader*>(alignedStart + size);
+                    newBlock->size = remainingSize;
+                    newBlock->next = current->next;
+                    current->next = newBlock;
+                }
+
+                if (prev)
+                {
+                    prev->next = current->next;
+                }
+                else
+                {
+                    m_freeStart = current->next;
+                }
+
+                current->size = size + padding;
+                return reinterpret_cast<void*>(alignedStart);
+            }
+
+            prev = current;
+            current = current->next;
+        }
+
+        return nullptr;
     }
 
     void Free(void* addr) noexcept
     {
-        // `Free` делает указатель недействительным, но ничего не освобождает.
-        // Оставляем метод как заглушку, так как простой менеджер не ведёт учёт блоков.
+        if (!addr)
+        {
+            return;
+        }
+
+        std::lock_guard<std::mutex> lock(m_mutex);
+
+        auto block = reinterpret_cast<BlockHeader*>(
+            static_cast<uint8_t*>(addr) - sizeof(BlockHeader));
+
+        assert(reinterpret_cast<uint8_t*>(block) >= m_start &&
+            reinterpret_cast<uint8_t*>(block) < m_start + m_size);
+
+        BlockHeader* prev = nullptr;
+        BlockHeader* current = m_freeStart;
+
+        while (current && current < block)
+        {
+            prev = current;
+            current = current->next;
+        }
+
+        block->next = current;
+        if (prev)
+        {
+            prev->next = block;
+        }
+        else
+        {
+            m_freeStart = block;
+        }
+
+        CoalesceBlocks(prev, block);
+        CoalesceBlocks(block, current);
     }
 
 private:
-    static bool IsPowerOfTwo(size_t value) noexcept
+    struct BlockHeader
     {
-        return value && (value & (value - 1)) == 0;
-    }
+        size_t size;          
+        BlockHeader* next;    
+    };
 
-    static uintptr_t AlignUp(uintptr_t address, size_t align) noexcept
+    uint8_t* m_start;          
+    size_t m_size;             
+    BlockHeader* m_freeStart;  
+    std::mutex m_mutex;       
+
+    void CoalesceBlocks(BlockHeader* prev, BlockHeader* current) noexcept
     {
-        return (address + (align - 1)) & ~(align - 1);
+        if (prev && reinterpret_cast<uint8_t*>(prev) + prev->size + sizeof(BlockHeader) == reinterpret_cast<uint8_t*>(current))
+        {
+            prev->size += current->size + sizeof(BlockHeader);
+            prev->next = current->next;
+        }
     }
-
-    char* m_start;
-    size_t m_size;
-    size_t m_offset;
-    std::mutex m_mutex;
 };
