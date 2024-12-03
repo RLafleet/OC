@@ -1,0 +1,3 @@
+C:/OC/lab6/task_3/build/CMakeFiles/sorter.dir
+C:/OC/lab6/task_3/build/CMakeFiles/ALL_BUILD.dir
+C:/OC/lab6/task_3/build/CMakeFiles/ZERO_CHECK.dir
