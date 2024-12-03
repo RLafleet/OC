@@ -1,0 +1,3 @@
+/mnt/c/OC/lab7/task_2+/build/CMakeFiles/fsmon.dir
+/mnt/c/OC/lab7/task_2+/build/CMakeFiles/edit_cache.dir
+/mnt/c/OC/lab7/task_2+/build/CMakeFiles/rebuild_cache.dir
