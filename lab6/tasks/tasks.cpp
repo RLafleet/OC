@@ -1,20 +1,53 @@
-// tasks.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+﻿#include <iostream>
+#include <fstream>
+#include <vector>
+#include <cstdint>
+#include <cstring>
 
-#include <iostream>
-
-int main()
+struct Person 
 {
-    std::cout << "Hello World!\n";
+    uint16_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t nameLength;
+    char name[59];
+};
+
+void ReadFile(const std::string& fileName) 
+{
+    std::ifstream file(fileName, std::ios::binary);
+
+    if (!file) 
+    {
+        std::cerr << "File not exists: " << fileName << std::endl;
+        return;
+    }
+
+    Person person;
+
+    while (file.read(reinterpret_cast<char*>(&person), sizeof(Person))) 
+    {
+        std::cout << "Birthday Date: "
+            << static_cast<int>(person.month) << "/"
+            << static_cast<int>(person.day) << "/"
+            << person.year << std::endl;
+
+        std::cout << "Name: ";
+        for (int i = 0; i < person.nameLength; ++i) 
+        {
+            std::cout << person.name[i];
+        }
+        std::cout << std::endl;
+
+        std::cout << "---------------------------" << std::endl;
+    }
+
+    file.close();
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menua
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+int main() 
+{
+    const std::string fileName = "data.txt"; 
+    ReadFile(fileName);
+    return 0;
+}
