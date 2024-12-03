@@ -1,0 +1,3 @@
+C:/OC/lab6/task_2/build/CMakeFiles/task_2.dir
+C:/OC/lab6/task_2/build/CMakeFiles/ALL_BUILD.dir
+C:/OC/lab6/task_2/build/CMakeFiles/ZERO_CHECK.dir
