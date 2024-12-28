@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/calc.dir/tasks.cpp.o -o calc  -lpthread 
