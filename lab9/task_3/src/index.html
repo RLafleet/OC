@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="login-screen">
+        <h2>Login</h2>
+        <input type="text" id="login-username" placeholder="Username">
+        <input type="password" id="login-password" placeholder="Password">
+        <button id="login-button">Login</button>
+        <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+    </div>
+    <div id="register-screen" class="hidden">
+        <h2>Register</h2>
+        <input type="text" id="register-username" placeholder="Username">
+        <input type="password" id="register-password" placeholder="Password">
+        <button id="register-button">Register</button>
+        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+    </div>
+    <div id="menu-screen" class="hidden">
+        <h2>Main Menu</h2>
+        <button id="start-quiz">Play Quiz</button>
+        <button id="view-leaderboard">View Leaderboard</button>
+    </div>
+    <div id="quiz-screen" class="hidden">
+        <h2>Quiz</h2>
+        <form id="quiz-form">
+            <!-- Questions will be injected here -->
+        </form>
+        <button id="submit-quiz">Submit Answers</button>
+    </div>
+    <div id="leaderboard-screen" class="hidden">
+        <h2>Leaderboard</h2>
+        <table id="leaderboard-table">
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Username</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Leaderboard data will be injected here -->
+            </tbody>
+        </table>
+        <button id="back-to-menu">Back to Menu</button>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
